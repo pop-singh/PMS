@@ -729,7 +729,7 @@ export class AllBookingsComponent implements OnInit {
       case 'PENDING':
         return 'schedule';
       case 'BOOKED':
-        return 'confirmed';
+        return 'receipt_long';
       case 'IN_TRANSIT':
         return 'local_shipping';
       case 'DELIVERED':
