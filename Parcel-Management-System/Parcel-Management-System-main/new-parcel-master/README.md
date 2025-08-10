@@ -211,11 +211,6 @@ java -jar target/courier-management-0.0.1-SNAPSHOT.jar
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Author
-
-**Koduri Yaswanth**
-- GitHub: [@Koduri-Yaswanth](https://github.com/Koduri-Yaswanth)
-- Repository: [Parcel2](https://github.com/Koduri-Yaswanth/Parcel2)
 
 ## 🙏 Acknowledgments
 
