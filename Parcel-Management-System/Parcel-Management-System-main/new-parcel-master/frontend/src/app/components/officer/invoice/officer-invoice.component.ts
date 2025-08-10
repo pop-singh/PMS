@@ -309,7 +309,7 @@ import { NavbarComponent } from '../../shared/navbar.component';
   styles: [`
     .invoice-container {
       min-height: 100vh;
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      background: #ffffff;
       padding: 2rem 0;
       margin-top: 80px;
     }
