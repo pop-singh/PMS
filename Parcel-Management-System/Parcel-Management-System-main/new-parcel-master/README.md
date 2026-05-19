@@ -70,8 +70,7 @@ A modern, full-stack courier management system built with **Angular 17** (Fronte
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Koduri-Yaswanth/Parcel2.git
-   cd Parcel2
+   
    ```
 
 2. **Install Frontend Dependencies**
