@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -9,17 +8,14 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule,
-    MatIconModule
+    RouterModule
   ],
   template: `
     <nav class="navbar" [class.navbar-landing]="type === 'landing'">
       <div class="navbar-container">
         <!-- Brand Section -->
         <div class="brand-section">
-          <div class="brand-logo">
-            <mat-icon>local_shipping</mat-icon>
-          </div>
+          <div class="brand-logo" aria-hidden="true">🚚</div>
           <div class="brand-text">
             <h1 class="brand-title">{{ getBrandTitle() }}</h1>
             <p class="brand-subtitle" *ngIf="type === 'landing'">Delivering excellence worldwide</p>
@@ -29,19 +25,19 @@ import { AuthService } from '../../services/auth.service';
         <!-- Desktop Navigation -->
         <div class="nav-links" *ngIf="type === 'landing'">
           <a (click)="scrollToFeatures()" class="nav-link">
-            <mat-icon>star</mat-icon>
+            <span class="icon" aria-hidden="true">⭐</span>
             <span>Features</span>
           </a>
           <a (click)="scrollToServices()" class="nav-link">
-            <mat-icon>local_shipping</mat-icon>
+            <span class="icon" aria-hidden="true">🚚</span>
             <span>Services</span>
           </a>
           <a (click)="scrollToAbout()" class="nav-link">
-            <mat-icon>info</mat-icon>
+            <span class="icon" aria-hidden="true">ℹ️</span>
             <span>About</span>
           </a>
           <a (click)="scrollToContact()" class="nav-link">
-            <mat-icon>contact_support</mat-icon>
+            <span class="icon" aria-hidden="true">📞</span>
             <span>Contact</span>
           </a>
         </div>
@@ -49,19 +45,19 @@ import { AuthService } from '../../services/auth.service';
         <!-- Customer Navigation -->
         <div class="nav-links" *ngIf="type === 'customer'">
           <a routerLink="/customer/dashboard" class="nav-link">
-            <mat-icon>dashboard</mat-icon>
+            <span class="icon" aria-hidden="true">📊</span>
             <span>Dashboard</span>
           </a>
           <a routerLink="/customer/booking" class="nav-link">
-            <mat-icon>add_shopping_cart</mat-icon>
+            <span class="icon" aria-hidden="true">✚</span>
             <span>New Booking</span>
           </a>
           <a routerLink="/customer/tracking" class="nav-link">
-            <mat-icon>location_on</mat-icon>
+            <span class="icon" aria-hidden="true">📍</span>
             <span>Track Package</span>
           </a>
           <a routerLink="/customer/previous-bookings" class="nav-link">
-            <mat-icon>history</mat-icon>
+            <span class="icon" aria-hidden="true">🕘</span>
             <span>My Bookings</span>
           </a>
         </div>
@@ -69,27 +65,27 @@ import { AuthService } from '../../services/auth.service';
         <!-- Officer Navigation -->
         <div class="nav-links" *ngIf="type === 'officer'">
           <a routerLink="/officer/dashboard" class="nav-link">
-            <mat-icon>dashboard</mat-icon>
+            <span class="icon" aria-hidden="true">📊</span>
             <span>Dashboard</span>
           </a>
           <a routerLink="/officer/booking" class="nav-link">
-            <mat-icon>add_shopping_cart</mat-icon>
+            <span class="icon" aria-hidden="true">✚</span>
             <span>Create Booking</span>
           </a>
           <a routerLink="/officer/all-bookings" class="nav-link">
-            <mat-icon>list</mat-icon>
+            <span class="icon" aria-hidden="true">📄</span>
             <span>All Bookings</span>
           </a>
           <a routerLink="/officer/tracking" class="nav-link">
-            <mat-icon>location_on</mat-icon>
+            <span class="icon" aria-hidden="true">📍</span>
             <span>Track Package</span>
           </a>
           <a routerLink="/officer/pickup-scheduling" class="nav-link">
-            <mat-icon>schedule</mat-icon>
+            <span class="icon" aria-hidden="true">🗓️</span>
             <span>Schedule Pickup</span>
           </a>
           <a routerLink="/officer/delivery-status" class="nav-link">
-            <mat-icon>update</mat-icon>
+            <span class="icon" aria-hidden="true">🔄</span>
             <span>Update Status</span>
           </a>
         </div>
@@ -97,11 +93,11 @@ import { AuthService } from '../../services/auth.service';
         <!-- Auth Buttons -->
         <div class="auth-buttons" *ngIf="type === 'landing'">
           <button class="btn btn-secondary" (click)="navigateToLogin()">
-            <mat-icon>login</mat-icon>
+            <span class="icon" aria-hidden="true">🔑</span>
             Sign In
           </button>
           <button class="btn btn-primary" (click)="navigateToRegister()">
-            <mat-icon>person_add</mat-icon>
+            <span class="icon" aria-hidden="true">➕</span>
             Sign Up
           </button>
         </div>
@@ -109,37 +105,35 @@ import { AuthService } from '../../services/auth.service';
         <!-- User Menu -->
         <div class="user-menu" *ngIf="type !== 'landing'">
           <div class="user-info" *ngIf="currentUser" (click)="toggleUserMenu()">
-            <div class="user-avatar">
-              <mat-icon>account_circle</mat-icon>
-            </div>
+            <div class="user-avatar" aria-hidden="true">👤</div>
             <div class="user-details">
               <div class="user-name">{{ currentUser.customerName || currentUser.officerName }}</div>
               <div class="user-role">{{ currentUser.role }}</div>
             </div>
-            <mat-icon class="dropdown-icon" [class.rotated]="isUserMenuOpen">expand_more</mat-icon>
+            <span class="dropdown-icon" [class.rotated]="isUserMenuOpen" aria-hidden="true">▾</span>
           </div>
 
           <!-- User Dropdown Menu -->
           <div class="user-dropdown" [class.open]="isUserMenuOpen">
             <button class="dropdown-item" (click)="navigateToProfile(); closeUserMenu()">
-              <mat-icon>person</mat-icon>
+              <span class="icon" aria-hidden="true">👤</span>
               <span>Profile</span>
             </button>
             <button class="dropdown-item" (click)="navigateToDashboard(); closeUserMenu()">
-              <mat-icon>dashboard</mat-icon>
+              <span class="icon" aria-hidden="true">📊</span>
               <span>Dashboard</span>
             </button>
             <div class="dropdown-divider"></div>
             <button class="dropdown-item" (click)="logout(); closeUserMenu()">
-              <mat-icon>logout</mat-icon>
+              <span class="icon" aria-hidden="true">🚪</span>
               <span>Logout</span>
             </button>
           </div>
         </div>
 
         <!-- Mobile Menu Toggle -->
-        <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" *ngIf="type === 'landing'">
-          <mat-icon>menu</mat-icon>
+        <button class="mobile-menu-toggle" (click)="toggleMobileMenu()" *ngIf="type === 'landing'" aria-label="Open menu">
+          ☰
         </button>
       </div>
 
@@ -150,35 +144,33 @@ import { AuthService } from '../../services/auth.service';
       <div class="mobile-menu" [class.mobile-menu-open]="isMobileMenuOpen && type === 'landing'">
         <div class="mobile-menu-header">
           <h3>Menu</h3>
-          <button class="close-btn" (click)="closeMobileMenu()">
-            <mat-icon>close</mat-icon>
-          </button>
+          <button class="close-btn" (click)="closeMobileMenu()" aria-label="Close menu">✕</button>
         </div>
         <div class="mobile-menu-links">
           <a (click)="scrollToFeatures(); closeMobileMenu()" class="mobile-nav-link">
-            <mat-icon>star</mat-icon>
+            <span class="icon" aria-hidden="true">⭐</span>
             <span>Features</span>
           </a>
           <a (click)="scrollToServices(); closeMobileMenu()" class="mobile-nav-link">
-            <mat-icon>local_shipping</mat-icon>
+            <span class="icon" aria-hidden="true">🚚</span>
             <span>Services</span>
           </a>
           <a (click)="scrollToAbout(); closeMobileMenu()" class="mobile-nav-link">
-            <mat-icon>info</mat-icon>
+            <span class="icon" aria-hidden="true">ℹ️</span>
             <span>About</span>
           </a>
           <a (click)="scrollToContact(); closeMobileMenu()" class="mobile-nav-link">
-            <mat-icon>contact_support</mat-icon>
+            <span class="icon" aria-hidden="true">📞</span>
             <span>Contact</span>
           </a>
         </div>
         <div class="mobile-menu-actions">
           <button class="btn btn-secondary" (click)="navigateToLogin(); closeMobileMenu()">
-            <mat-icon>login</mat-icon>
+            <span class="icon" aria-hidden="true">🔑</span>
             Sign In
           </button>
           <button class="btn btn-primary" (click)="navigateToRegister(); closeMobileMenu()">
-            <mat-icon>person_add</mat-icon>
+            <span class="icon" aria-hidden="true">➕</span>
             Sign Up
           </button>
         </div>
@@ -192,9 +184,9 @@ import { AuthService } from '../../services/auth.service';
       left: 0;
       right: 0;
       z-index: 1000;
-      background: var(--brand-gradient);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: #ffffff;
+      backdrop-filter: none;
+      border-bottom: 1px solid var(--border-light);
       transition: all 0.3s ease;
     }
 
@@ -205,7 +197,7 @@ import { AuthService } from '../../services/auth.service';
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 80px;
+      height: 72px;
     }
 
     /* Brand Section */
@@ -216,20 +208,16 @@ import { AuthService } from '../../services/auth.service';
     }
 
     .brand-logo {
-      width: 2.5rem;
-      height: 2.5rem;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 0.75rem;
+      width: 2.25rem;
+      height: 2.25rem;
+      background: var(--background-secondary);
+      border: 1px solid var(--border-light);
+      border-radius: 0.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .brand-logo mat-icon {
-      font-size: 1.5rem;
-      width: 1.5rem;
-      height: 1.5rem;
-      color: #ffffff;
+      font-size: 1.25rem;
+      color: var(--primary-color);
     }
 
     .brand-text {
@@ -238,16 +226,16 @@ import { AuthService } from '../../services/auth.service';
     }
 
     .brand-title {
-      font-size: 1.25rem;
+      font-size: 1.125rem;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-primary);
       margin: 0;
       line-height: 1.2;
     }
 
     .brand-subtitle {
       font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.8);
+      color: var(--text-secondary);
       margin: 0;
       line-height: 1.2;
     }
@@ -256,36 +244,37 @@ import { AuthService } from '../../services/auth.service';
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 2rem;
+      gap: 1rem;
     }
 
     .nav-link {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      color: #ffffff;
+      color: var(--text-primary);
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.875rem;
-      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      padding: 0.5rem 0.75rem;
       border-radius: 0.5rem;
       transition: all 0.15s ease;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: transparent;
+      border: 1px solid transparent;
       cursor: pointer;
     }
 
     .nav-link:hover {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      color: var(--primary-dark);
+      background: var(--background-secondary);
+      border-color: var(--border-light);
     }
 
-    .nav-link mat-icon {
+    .icon {
+      display: inline-block;
       font-size: 1rem;
+      line-height: 1;
       width: 1rem;
-      height: 1rem;
+      text-align: center;
     }
 
     /* Buttons */
@@ -293,10 +282,10 @@ import { AuthService } from '../../services/auth.service';
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
+      padding: 0.6rem 1.1rem;
       border-radius: 0.5rem;
       font-weight: 500;
-      font-size: 0.875rem;
+      font-size: 0.85rem;
       text-decoration: none;
       border: none;
       cursor: pointer;
@@ -305,24 +294,25 @@ import { AuthService } from '../../services/auth.service';
     }
 
     .btn-primary {
-      background: var(--brand-gradient);
+      background: var(--primary-color);
       color: #ffffff;
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      box-shadow: var(--shadow-sm);
     }
 
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      box-shadow: var(--shadow-md);
+      background: var(--primary-dark);
     }
 
     .btn-secondary {
       background: #ffffff;
-      color: #0891b2;
-      border: 2px solid #0891b2;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
     }
 
     .btn-secondary:hover {
-      background: #0891b2;
+      background: var(--primary-color);
       color: #ffffff;
       transform: translateY(-1px);
     }
@@ -331,7 +321,7 @@ import { AuthService } from '../../services/auth.service';
     .auth-buttons {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.75rem;
     }
 
     /* User Menu */
@@ -344,35 +334,30 @@ import { AuthService } from '../../services/auth.service';
     .user-info {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      padding: 0.5rem 1rem;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 0.75rem;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      gap: 0.75rem;
+      padding: 0.4rem 0.75rem;
+      background: var(--background-secondary);
+      border-radius: 0.5rem;
+      border: 1px solid var(--border-light);
       cursor: pointer;
       transition: all 0.15s ease;
     }
 
     .user-info:hover {
-      background: rgba(255, 255, 255, 0.2);
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      background: #fff;
+      box-shadow: var(--shadow-sm);
     }
 
     .user-avatar {
       width: 2rem;
       height: 2rem;
-      background: var(--brand-gradient);
+      background: var(--primary-color);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .user-avatar mat-icon {
-      font-size: 1.25rem;
-      width: 1.25rem;
-      height: 1.25rem;
       color: #ffffff;
+      font-size: 1.1rem;
     }
 
     .user-details {
@@ -381,25 +366,24 @@ import { AuthService } from '../../services/auth.service';
     }
 
     .user-name {
-      font-size: 0.875rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      color: #ffffff;
+      color: var(--text-primary);
       line-height: 1.2;
     }
 
     .user-role {
       font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.8);
+      color: var(--text-secondary);
       text-transform: capitalize;
       line-height: 1.2;
     }
 
     .dropdown-icon {
       font-size: 1rem;
-      width: 1rem;
-      height: 1rem;
-      color: rgba(255, 255, 255, 0.8);
+      color: var(--text-secondary);
       transition: transform 0.15s ease;
+      display: inline-block;
     }
 
     .dropdown-icon.rotated {
@@ -413,9 +397,9 @@ import { AuthService } from '../../services/auth.service';
       right: 0;
       margin-top: 0.5rem;
       background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.75rem;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border-light);
+      border-radius: 0.5rem;
+      box-shadow: var(--shadow-lg);
       overflow: hidden;
       opacity: 0;
       visibility: hidden;
@@ -435,7 +419,7 @@ import { AuthService } from '../../services/auth.service';
       align-items: center;
       gap: 0.75rem;
       padding: 0.75rem 1rem;
-      color: #64748b;
+      color: var(--text-secondary);
       background: none;
       border: none;
       width: 100%;
@@ -446,19 +430,13 @@ import { AuthService } from '../../services/auth.service';
     }
 
     .dropdown-item:hover {
-      background: #f8fafc;
-      color: #0891b2;
-    }
-
-    .dropdown-item mat-icon {
-      font-size: 1rem;
-      width: 1rem;
-      height: 1rem;
+      background: var(--background-secondary);
+      color: var(--primary-dark);
     }
 
     .dropdown-divider {
       height: 1px;
-      background: #e2e8f0;
+      background: var(--border-light);
       margin: 0.5rem 0;
     }
 
@@ -467,15 +445,11 @@ import { AuthService } from '../../services/auth.service';
       display: none;
       background: none;
       border: none;
-      color: #ffffff;
+      color: var(--text-primary);
       cursor: pointer;
       padding: 0.5rem;
-    }
-
-    .mobile-menu-toggle mat-icon {
       font-size: 1.5rem;
-      width: 1.5rem;
-      height: 1.5rem;
+      line-height: 1;
     }
 
     /* Mobile Menu */
@@ -485,9 +459,9 @@ import { AuthService } from '../../services/auth.service';
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.2);
       z-index: 999;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(2px);
     }
 
     .mobile-menu {
@@ -497,7 +471,7 @@ import { AuthService } from '../../services/auth.service';
       width: 300px;
       height: 100vh;
       background: #ffffff;
-      border-left: 1px solid #e2e8f0;
+      border-left: 1px solid var(--border-light);
       z-index: 1001;
       transition: right 0.3s ease;
       display: flex;
@@ -512,14 +486,14 @@ import { AuthService } from '../../services/auth.service';
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.5rem;
-      border-bottom: 1px solid #e2e8f0;
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--border-light);
     }
 
     .mobile-menu-header h3 {
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       font-weight: 600;
-      color: #1e293b;
+      color: var(--text-primary);
       margin: 0;
     }
 
@@ -528,26 +502,22 @@ import { AuthService } from '../../services/auth.service';
       border: none;
       cursor: pointer;
       padding: 0.5rem;
-    }
-
-    .close-btn mat-icon {
       font-size: 1.25rem;
-      width: 1.25rem;
-      height: 1.25rem;
-      color: #64748b;
+      color: var(--text-secondary);
+      line-height: 1;
     }
 
     .mobile-menu-links {
       flex: 1;
-      padding: 1rem 0;
+      padding: 0.5rem 0;
     }
 
     .mobile-nav-link {
       display: flex;
       align-items: center;
       gap: 1rem;
-      padding: 1rem 1.5rem;
-      color: #64748b;
+      padding: 0.75rem 1.25rem;
+      color: var(--text-secondary);
       text-decoration: none;
       font-weight: 500;
       transition: all 0.15s ease;
@@ -555,31 +525,25 @@ import { AuthService } from '../../services/auth.service';
     }
 
     .mobile-nav-link:hover {
-      background: #f8fafc;
-      color: #0891b2;
-    }
-
-    .mobile-nav-link mat-icon {
-      font-size: 1.25rem;
-      width: 1.25rem;
-      height: 1.25rem;
+      background: var(--background-secondary);
+      color: var(--primary-dark);
     }
 
     .mobile-menu-actions {
-      padding: 1.5rem;
-      border-top: 1px solid #e2e8f0;
+      padding: 1.25rem;
+      border-top: 1px solid var(--border-light);
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.75rem;
     }
 
     /* Responsive Design */
     @media (max-width: 1024px) {
       .nav-links {
-        gap: 1rem;
+        gap: 0.75rem;
       }
 
-      .nav-link span {
+      .nav-link span:last-child {
         display: none;
       }
 
@@ -613,7 +577,7 @@ import { AuthService } from '../../services/auth.service';
       }
 
       .brand-title {
-        font-size: 1.125rem;
+        font-size: 1.05rem;
       }
 
       .user-details {

@@ -309,7 +309,7 @@ import { NavbarComponent } from '../../shared/navbar.component';
   styles: [`
     .invoice-container {
       min-height: 100vh;
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      background: #ffffff;
       padding: 2rem 0;
       margin-top: 80px;
     }
@@ -1021,11 +1021,30 @@ export class OfficerInvoiceComponent implements OnInit {
   }
 
   downloadInvoice() {
-    // For now, show a message that the feature is coming soon
-    this.snackBar.open('PDF download feature coming soon!', 'Close', {
-      duration: 3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top'
+    // Attempt to download invoice as PDF using the payment service
+    const bookingId = this.invoiceData?.bookingId;
+    if (!bookingId) {
+      this.snackBar.open('Booking ID not found', 'Close', { duration: 3000 });
+      return;
+    }
+
+    this.isLoading = true;
+    this.paymentService.downloadInvoicePdf(bookingId).subscribe({
+      next: (response: Blob) => {
+        const blob = new Blob([response], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `invoice_${bookingId}.pdf`;
+        link.click();
+        window.URL.revokeObjectURL(url);
+        this.snackBar.open('Invoice downloaded successfully', 'Close', { duration: 3000 });
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+        this.snackBar.open('Failed to download invoice', 'Close', { duration: 3000 });
+      }
     });
   }
 

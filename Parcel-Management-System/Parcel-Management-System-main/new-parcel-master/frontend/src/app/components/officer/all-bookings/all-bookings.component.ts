@@ -268,7 +268,7 @@ import { NavbarComponent } from '../../shared/navbar.component';
   styles: [`
     .all-bookings-container {
       min-height: 100vh;
-      background: linear-gradient(135deg, var(--background-primary) 0%, var(--background-secondary) 50%, var(--background-tertiary) 100%);
+      background: #ffffff;
       padding: 120px 3rem 3rem;
       position: relative;
     }
@@ -729,7 +729,7 @@ export class AllBookingsComponent implements OnInit {
       case 'PENDING':
         return 'schedule';
       case 'BOOKED':
-        return 'confirmed';
+        return 'receipt_long';
       case 'IN_TRANSIT':
         return 'local_shipping';
       case 'DELIVERED':

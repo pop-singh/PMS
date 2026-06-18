@@ -118,7 +118,7 @@ import { NavbarComponent } from '../../shared/navbar.component';
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      background: linear-gradient(135deg, #000 0%, #1a1a1a 50%, #000 100%);
+      background: #ffffff;
       padding: 80px 20px 20px;
       position: relative;
     }
